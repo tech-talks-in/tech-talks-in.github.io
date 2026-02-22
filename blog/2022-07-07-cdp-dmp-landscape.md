@@ -1,15 +1,14 @@
 ---
 slug: cdp-dmp-landscape
 title: Unlock the full potential of your customer data with the right CDP and DMP tools
-authors:
-  name: Pavan Kumar
-  title: tech-talks Core Team
-  url: https://github.com/mrpavan
-  image_url: https://github.com/mrpavan.png
+authors: [pavan]
 tags: [CustomerDataPlatform, CDP, DataManagementPlatform, DMP, CustomerDataStrategy, DataSegmentation, TargetedMarketing, SingleCustomerView, CustomerEngagement, DataInsights]
 ---
 
-Welcome to the world of marketing technology, this article will provide you a brief introduction and take you through different platforms available in the Customer Data Platform (CDP) and Data Management Platform (DMP) space. In today's digital landscape, managing customer data effectively is more important than ever. CDPs and DMPs are powerful tools that help organizations gain a comprehensive view of their customers and use that information to make better decisions, improve customer engagement, and ultimately drive more revenue. In this article, we will be taking a look at some of the most popular platforms and features available in the CDP and DMP space.
+Welcome to the world of marketing technology, this article will provide you a brief introduction and take you through different platforms available in the Customer Data Platform (CDP) and Data Management Platform (DMP) space.
+
+<!-- truncate -->
+
 
 **I. Introduction**
 Managing customer data effectively is crucial for any business that wants to stay competitive in today's digital landscape. With the abundance of data available, it can be difficult to make sense of it all, but having a clear understanding of your customers can help you make better decisions, improve customer engagement, and ultimately drive more revenue.

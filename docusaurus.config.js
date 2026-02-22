@@ -12,7 +12,11 @@ const config = {
   url: 'https://www.tech-talks-in/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
   favicon: 'img/techtalks-fav.ico',
 
   // GitHub pages deployment config.

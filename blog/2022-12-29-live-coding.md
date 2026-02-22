@@ -8,6 +8,8 @@ tags: [api, development]
 
 Wanted to create something fun with jsx, Live coding. Go ahead try setting initial value of the counter and update function to your liking or write your own code. Give it a try! visit **Live Coding Demo** under tutorials on how to implement in your website
 
+<!-- truncate -->
+
 ``` jsx live
 function LiveCode(props) {
     const [count, setCount] = useState(0);

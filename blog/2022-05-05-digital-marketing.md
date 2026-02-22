@@ -1,17 +1,16 @@
 ---
 slug: digital-marketing
 title: "From Social Media to SEO: Navigating the World of Digital Marketing"
-authors:
-  name: Pavan Kumar
-  title: tech-talks Core Team
-  url: https://github.com/mrpavan
-  image_url: https://github.com/mrpavan.png
+authors: [pavan]
 tags: [Digital marketing, Marketing strategies, Online advertising, SEO, Business growth]
 ---
 
 Digital marketing refers to the use of digital channels and technologies to promote products or services. It includes a wide range of tactics such as search engine optimization (SEO), social media marketing, email marketing, and online advertising
 
-This blog article gives you digital marketing 101 on basic concepts, types and terminologies used in the digital marketing domain along with tips to get you started. 
+This blog article gives you digital marketing 101 on basic concepts, types and terminologies used in the digital marketing domain along with tips to get you started.
+
+<!-- truncate -->
+
 
 **Continue reading for details on**
 

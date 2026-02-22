@@ -12,6 +12,8 @@ tags: [api, development]
 
 Collection of Open API's to work during development of any of your app ideas, includes free, paid and freemium based services that can be integrated with any application **checkout thier websites for getting your own apikey, pricing information and documentations**.
 
+<!-- truncate -->
+
 ### API Key Required
 
 - [Auth0](https://auth0.com/) : Easy to implement, adaptable authentication and authorization platform by okta, free plan with up to 7,000 active users and unlimited logins

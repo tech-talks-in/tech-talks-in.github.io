@@ -1,15 +1,14 @@
 ---
 slug: sprint-planning
 title: "Maximizing Your Sprints: The Ultimate Guide to Efficient Planning"
-authors:
-  name: Pavan Kumar
-  title: tech-talks Core Team
-  url: https://github.com/mrpavan
-  image_url: https://github.com/mrpavan.png
+authors: [pavan]
 tags: [sprint, agile, scrum, development team, Strategic Sprint Planning, Step-by-Step Guide]
 ---
 
-Are you ready to take your software development to the next level? Look no further than sprint planning! In this article, we'll dive into the world of Agile methodology and explore the importance of sprint activities in delivering value to customers in a timely manner. From sprint planning and daily scrum meetings, to sprint review and retrospective, we've got you covered. So buckle up and let's get started on our sprint journey! 
+Are you ready to take your software development to the next level? Look no further than sprint planning! In this article, we'll dive into the world of Agile methodology and explore the importance of sprint activities in delivering value to customers in a timely manner.
+
+<!-- truncate -->
+
 
 **What is a Sprint?** 
 A sprint is a time-boxed period in Agile software development, typically lasting between one and four weeks(though 2 weeks is quite common across software development teams), during which a defined set of work is completed. The goal of a sprint is to deliver a potentially releasable product increment.

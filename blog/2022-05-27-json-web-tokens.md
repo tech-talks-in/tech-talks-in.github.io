@@ -1,11 +1,7 @@
 ---
 slug: json-web-tokens
 title: JWT
-authors:
-  name: Pavan Kumar
-  title: tech-talks Core Team
-  url: https://github.com/mrpavan
-  image_url: https://github.com/mrpavan.png
+authors: [pavan]
 tags: [jwt, jsonwebtokens, node, authentication, authorization]
 ---
 
