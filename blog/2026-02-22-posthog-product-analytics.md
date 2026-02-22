@@ -35,14 +35,14 @@ Every navigation is tracked automatically—no manual instrumentation needed.
 
 When users log in, we identify them in PostHog with:
 - User ID and email
-- Role information (Owner, Supervisor, Agent)
-- Client context (which organization they belong to)
+- Role information
+- User context 
 
 This lets us segment analysis by user type and understand how different roles use the product.
 
 ### 3. Feature Usage Tracking
 
-We track when users access major features:
+We track when users access major features like:
 - Campaigns module
 - Unified inbox
 - Settings and user management
