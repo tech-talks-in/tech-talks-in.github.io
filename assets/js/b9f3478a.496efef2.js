@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktech_talks_in=self.webpackChunktech_talks_in||[]).push([[9504],{4282:s=>{s.exports=JSON.parse('{"label":"scrum","permalink":"/blog/tags/scrum","allTagsPath":"/blog/tags","count":1}')}}]);

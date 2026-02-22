@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktech_talks_in=self.webpackChunktech_talks_in||[]).push([[9287],{794:a=>{a.exports=JSON.parse('{"label":"api","permalink":"/blog/tags/api","allTagsPath":"/blog/tags","count":3}')}}]);

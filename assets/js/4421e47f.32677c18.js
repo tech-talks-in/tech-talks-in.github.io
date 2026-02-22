@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktech_talks_in=self.webpackChunktech_talks_in||[]).push([[3332],{509:a=>{a.exports=JSON.parse('{"label":"DataSegmentation","permalink":"/blog/tags/data-segmentation","allTagsPath":"/blog/tags","count":1}')}}]);

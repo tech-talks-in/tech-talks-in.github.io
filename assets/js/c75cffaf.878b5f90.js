@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktech_talks_in=self.webpackChunktech_talks_in||[]).push([[9725],{911:a=>{a.exports=JSON.parse('{"label":"DataInsights","permalink":"/blog/tags/data-insights","allTagsPath":"/blog/tags","count":1}')}}]);

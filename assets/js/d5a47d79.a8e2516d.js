@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktech_talks_in=self.webpackChunktech_talks_in||[]).push([[8046],{9200:a=>{a.exports=JSON.parse('{"label":"DMP","permalink":"/blog/tags/dmp","allTagsPath":"/blog/tags","count":1}')}}]);

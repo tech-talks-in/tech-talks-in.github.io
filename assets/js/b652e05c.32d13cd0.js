@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktech_talks_in=self.webpackChunktech_talks_in||[]).push([[5653],{1566:e=>{e.exports=JSON.parse('{"label":"node","permalink":"/blog/tags/node","allTagsPath":"/blog/tags","count":1}')}}]);

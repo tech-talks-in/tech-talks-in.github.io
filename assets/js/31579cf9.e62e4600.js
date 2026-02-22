@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktech_talks_in=self.webpackChunktech_talks_in||[]).push([[6718],{9158:a=>{a.exports=JSON.parse('{"label":"CustomerDataPlatform","permalink":"/blog/tags/customer-data-platform","allTagsPath":"/blog/tags","count":1}')}}]);

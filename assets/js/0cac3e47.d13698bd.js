@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktech_talks_in=self.webpackChunktech_talks_in||[]).push([[4375],{7547:e=>{e.exports=JSON.parse('{"label":"TargetedMarketing","permalink":"/blog/tags/targeted-marketing","allTagsPath":"/blog/tags","count":1}')}}]);
