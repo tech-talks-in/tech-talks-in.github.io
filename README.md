@@ -19,7 +19,7 @@ A technical blog and documentation site built with [Docusaurus 3](https://docusa
 
 ### Prerequisites
 
-- Node.js >= 18
+- Node.js >= 20
 - npm >= 8
 
 ### Installation
