@@ -1,11 +1,7 @@
 ---
 slug: json-web-tokens
 title: JWT
-authors:
-  name: Pavan Kumar
-  title: tech-talks Core Team
-  url: https://github.com/mrpavan
-  image_url: https://github.com/mrpavan.png
+authors: [pavan]
 tags: [jwt, jsonwebtokens, node, authentication, authorization]
 ---
 
@@ -34,17 +30,21 @@ This JWT has three parts, separated by dots (.). The first part is the header, w
 Here is the same JWT, with the parts decoded:
 
 Header:
+```json
 {
 "alg": "HS256",
 "typ": "JWT"
 }
+```
 
 Payload:
+```json
 {
 "sub": "1234567890",
 "name": "John Doe",
 "iat": 1516239022
 }
+```
 
 To create this JWT, you would first need to create the header and payload as JSON objects, and then encode them using base64Url encoding. Then, you would create the signature by signing the encoded header and payload with a secret using the HMAC SHA256 algorithm.
 
