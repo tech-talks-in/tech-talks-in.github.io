@@ -22,6 +22,8 @@ Most teams start analytics with one question: *"Are users actually using what we
 
 Without analytics, you're guessing. PostHog gives you the data to answer these questions from a single platform, without stitching together multiple tools.
 
+![posthog.png](./images/posthog-dashboard-view.png)
+
 ---
 
 ## Part 1: Product Analytics
