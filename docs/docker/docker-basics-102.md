@@ -64,9 +64,9 @@ sidebar_position: 2
     example:
     docker save --output mycontainer.tar mycontainer
     ```
-    if you want to use STDOUT > is used instead od --output flag
+    if you want to use STDOUT &gt; is used instead of --output flag
     This can be copied to a target machine and iamge can be restored into the new machine with load command as below 
-    Read from tar archive file, instead of STDIN, for STDIN replace -i or --input with <
+    Read from tar archive file, instead of STDIN, for STDIN replace -i or --input with &lt;
 
     ```
     docker load -i mycontainer.tar
