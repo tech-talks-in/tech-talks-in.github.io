@@ -3,169 +3,277 @@ slug: posthog-product-analytics
 title: "Unlocking Product Insights with PostHog: A Practical Guide to Product and Web Analytics"
 authors: [pavan]
 tags: [posthog, analytics, product, web-analytics, funnel, user-behavior]
-description: How we implemented PostHog to understand user behavior, measure feature adoption, and make data-driven product decisions.
+description: How to use PostHog to understand user behavior, measure feature adoption, track web traffic, and make data-driven product decisions.
 ---
 
-Product decisions need data. PostHog helps you understand user behavior, measure feature adoption, and make data-driven decisions. Here's how we implemented it and what we learned.
+Product decisions need data. PostHog is an open-source analytics platform that combines **product analytics**, **web analytics**, **session recordings**, and **feature flags** in a single tool. Here's a practical guide to getting the most out of it.
 
 <!-- truncate -->
 
-## Why PostHog? The Problem We Were Solving
+## Why PostHog?
 
-We needed to answer:
+Most teams start analytics with one question: *"Are users actually using what we built?"* PostHog helps you answer that — and much more:
+
 - Which features do users actually use?
 - Where do users drop off in key workflows?
-- How do different user roles interact with the product?
-- What's the conversion rate for critical business actions?
+- How do different user segments interact with the product?
+- What is the conversion rate for critical actions?
+- Where is our web traffic coming from?
 
-Without analytics, we were guessing. PostHog gave us the data to answer these questions.
+Without analytics, you're guessing. PostHog gives you the data to answer these questions from a single platform, without stitching together multiple tools.
 
-## What We Built: A Complete Analytics Solution
+![posthog.png](./images/posthog-dashboard-view.png)
 
-### 1. Automatic Page View Tracking
+---
 
-We implemented automatic page view tracking that captures:
-- Route names and paths
-- Feature context (which module the user is in)
-- User identification (authenticated vs anonymous)
+## Part 1: Product Analytics
 
-Every navigation is tracked automatically—no manual instrumentation needed.
+### Identifying and Tracking Key Events
 
-### 2. User Identification and Context
+The foundation of PostHog is **event tracking**. An event is any meaningful user action — clicking a button, submitting a form, visiting a page. You define what matters for your product.
 
-When users log in, we identify them in PostHog with:
-- User ID and email
-- Role information
-- User context 
+Good events to track:
+- Feature accessed (user opens a key module)
+- Workflow started (user begins a multi-step process)
+- Workflow completed (user finishes the process)
+- Business action taken (user creates/sends/updates something)
 
-This lets us segment analysis by user type and understand how different roles use the product.
+**Tip:** Use a consistent naming convention like `feature_accessed`, `form_submitted`, `workflow_completed`. This makes querying and building dashboards much easier.
 
-### 3. Feature Usage Tracking
+### User Identification and Segmentation
 
-We track when users access major features like:
-- Campaigns module
-- Unified inbox
-- Settings and user management
-- Dashboard and reports
+When users log in, identify them in PostHog so you can segment analytics by user properties:
 
-This shows which features are most valuable and where to focus development.
+```js
+posthog.identify(userId, {
+  email: user.email,
+  role: user.role,       // e.g. admin, editor, viewer
+  plan: user.plan,       // e.g. free, pro, enterprise
+});
+```
 
-### 4. Workflow Step Tracking
+This lets you answer questions like:
+- Do Pro users use Feature X more than Free users?
+- Do Admin users complete the onboarding workflow at a higher rate?
 
-For critical workflows like campaign creation, we track each step:
-- Form started
-- Basic details completed
-- Contact category selected
-- Delivery option selected
-- Summary submitted
+Avoid storing sensitive PII beyond what's needed for segmentation. User ID, role, and plan tier are usually sufficient.
 
-This enables detailed funnel analysis to identify drop-off points.
+### Feature Adoption Tracking
 
-### 5. Business Metrics Tracking
+Track when users access your major features to understand what's being used:
 
-We track conversion events:
-- Campaign created
-- Message sent
-- User created/updated
+```js
+posthog.capture('feature_accessed', {
+  feature: 'reporting_dashboard',
+  source: 'sidebar_nav',
+});
+```
 
-Each event includes business context (campaign type, channel, user role) for deeper analysis.
+Over time this reveals:
+- Which features drive the most engagement
+- Which features are underutilised despite investment
+- Which features are "sticky" (users return to them regularly)
 
-## The Power of Funnel Analysis
+### Funnel Analysis: Finding Drop-Off Points
 
-One of the most powerful features we implemented is detailed funnel analysis. For our campaign creation workflow, we built a 6-step funnel:
+Funnel analysis is one of PostHog's most powerful capabilities. For any multi-step workflow, you can build a funnel to see where users drop off.
 
-1. Feature accessed (user visits campaigns page)
-2. Campaign form started (user opens creation form)
-3. Basic details completed (user fills in campaign information)
-4. Contact category selected (user chooses recipients)
-5. Delivery option selected (user chooses timing)
-6. Summary submitted (user submits for approval)
+**Example: A 5-step onboarding funnel**
 
-This funnel shows us:
-- Where users drop off
-- How long each step takes
-- Conversion rates at each stage
-- Which user segments have higher completion rates
+| Step | Event | Conversion |
+|---|---|---|
+| 1 | `signup_completed` | 100% |
+| 2 | `onboarding_started` | 82% |
+| 3 | `profile_setup_done` | 61% |
+| 4 | `first_feature_used` | 44% |
+| 5 | `onboarding_completed` | 31% |
 
-## Real-World Impact
+From this you can immediately see that the biggest drop-off is between steps 3 and 4. That's where to focus improvement efforts.
 
-Since implementing PostHog, we've gained insights that directly impact our product:
+In PostHog, you build funnels by selecting the ordered sequence of events and filtering by date range, user properties, or cohorts.
 
-### Understanding User Behavior
-We can see which features drive engagement and which are underutilized. This helps prioritize development.
+### Cohort Analysis
 
-### Identifying Bottlenecks
-Funnel analysis revealed where users struggle. For example, we found that many users drop off at the contact category selection step, leading us to improve that UI.
+Group users into **cohorts** based on shared properties or behaviours and compare how they use your product:
 
-### Measuring Feature Success
-When we launch new features, we can measure adoption and usage patterns to determine success.
+- Users who signed up in January vs February
+- Power users (more than 10 sessions/week) vs casual users
+- Mobile users vs desktop users
 
-### Data-Driven Decisions
-Instead of guessing, we make decisions based on actual user behavior data.
+Cohort comparison helps you understand which user segments are most successful and what drives retention.
 
-## Implementation Highlights
+---
+
+## Part 2: Web Analytics
+
+PostHog's **Web Analytics** dashboard gives you a Google Analytics-style view of your website traffic without the privacy concerns and without needing a separate tool.
+
+### Traffic Overview
+
+The web analytics dashboard shows at a glance:
+
+- **Unique visitors** — how many individual users visited
+- **Pageviews** — total pages viewed
+- **Sessions** — grouped visits per user
+- **Bounce rate** — percentage of single-page sessions
+- **Session duration** — average time users spend on the site
+
+These metrics are available by day, week, or month, with trend comparisons to previous periods.
+
+### Traffic Sources
+
+Understanding where your users come from helps you prioritise marketing and content efforts. PostHog breaks down traffic by:
+
+| Source | What it tells you |
+|---|---|
+| **Direct** | Users who typed your URL or came from bookmarks |
+| **Organic search** | Users from Google/Bing — a signal of SEO health |
+| **Referral** | Users from links on other websites |
+| **Social** | Traffic from Twitter, LinkedIn, etc. |
+| **Email** | Traffic from email campaigns (via UTM params) |
+| **Paid** | Traffic from ads (via UTM params) |
+
+**UTM tracking tip:** Always append UTM parameters to links you share in campaigns:
+```
+https://yoursite.com/blog?utm_source=newsletter&utm_medium=email&utm_campaign=feb-2026
+```
+PostHog automatically captures these and attributes sessions correctly.
+
+### Top Pages and Entry/Exit Analysis
+
+PostHog shows you:
+- **Most visited pages** — where users spend the most time
+- **Top entry pages** — where users first land on your site
+- **Top exit pages** — where users leave — potential friction points
+
+If a key product page has a high exit rate, that's a signal to investigate with session recordings.
+
+### Geographic and Device Breakdown
+
+Understand your audience better with:
+- **Countries and cities** — where your users are located
+- **Browsers** — Chrome, Safari, Firefox, Edge breakdown
+- **Device type** — desktop vs mobile vs tablet
+- **OS** — Windows, macOS, iOS, Android
+
+This helps with decisions like: *"Should we invest more in mobile optimisation?"* or *"Are we supporting the right browsers?"*
+
+### Web Vitals (Core Web Vitals)
+
+PostHog can track **Google's Core Web Vitals** directly:
+
+| Metric | What it measures | Good threshold |
+|---|---|---|
+| **LCP** (Largest Contentful Paint) | Load performance | &lt; 2.5s |
+| **FID** / **INP** (Interaction to Next Paint) | Interactivity | &lt; 200ms |
+| **CLS** (Cumulative Layout Shift) | Visual stability | &lt; 0.1 |
+
+Poor Core Web Vitals hurt both user experience and search rankings. Tracking these in PostHog alongside user behaviour data means you can directly correlate slow pages with higher bounce rates.
+
+---
+
+## Part 3: Session Recordings
+
+Session recordings let you **watch how real users navigate your product** — clicks, scrolls, form interactions, and navigation paths — without seeing any sensitive input data (PostHog masks form fields by default).
+
+### When to Use Session Recordings
+
+- **After a spike in bounce rate** — watch what users do before leaving
+- **When funnel drop-off increases** — see what happens at the step where users quit
+- **After launching a new UI** — validate that users understand and use it as intended
+- **When support tickets spike** — understand what users are experiencing
+
+### Heatmaps
+
+![posthog-heatmaps.png](./images/posthog-heatmaps.png)
+
+PostHog's heatmaps show aggregated click and scroll data across sessions:
+
+- **Click maps** — which elements get the most clicks (including rage-clicks)
+- **Scroll depth maps** — how far down the page users typically scroll
+
+If users never scroll to your CTA, it doesn't matter how good the copy is.
+
+---
+
+## Part 4: Practical Setup Tips
 
 ### Error Handling
-PostHog failures don't break the app. We implemented graceful error handling so analytics issues never impact user experience.
+Wrap PostHog calls so analytics failures never break your app:
+
+```js
+try {
+  posthog.capture('event_name', { property: value });
+} catch (e) {
+  // fail silently — analytics should never break the UX
+  console.warn('Analytics error:', e);
+}
+```
 
 ### Performance
-Event tracking is asynchronous and non-blocking. Users don't notice any performance impact.
+PostHog's SDK is asynchronous and non-blocking. Load it with the `async` attribute or via a deferred script to avoid impacting page load time.
 
-### Privacy
-We sanitize event properties to exclude sensitive data and respect user privacy.
+### Privacy Best Practices
+- Don't capture raw form values — PostHog masks inputs by default, keep it that way
+- Don't store passwords, payment info, or other sensitive PII in event properties
+- Use role/tier rather than email for segmentation where possible
+- Check your privacy policy covers analytics data collection
 
-### Offline Support
-Events are queued when offline and sent when connectivity is restored.
+### Sampling for High-Traffic Sites
+If you have very high traffic, use PostHog's sampling configuration to reduce event volume and cost while maintaining statistical accuracy.
 
-## Key Metrics We Track
+---
 
-### Product Metrics
-- Feature adoption rates
-- User engagement by module
-- Navigation patterns
-- Session duration and frequency
+## Key Metrics at a Glance
 
-### Business Metrics
-- Campaign creation conversion rate
-- Message sending volume
-- User management activity
-- Feature usage by user role
+| Category | Metric | Why it matters |
+|---|---|---|
+| **Acquisition** | Unique visitors, traffic sources | Where growth comes from |
+| **Engagement** | Session duration, pages/session | How valuable the experience is |
+| **Retention** | Return visitor rate, cohort retention | Whether users come back |
+| **Conversion** | Funnel completion rates | Whether users achieve their goals |
+| **Performance** | Core Web Vitals | Speed and stability |
+| **Feature Health** | Feature adoption rates | What you've built is being used |
 
-### User Journey Metrics
-- Funnel conversion rates
-- Drop-off points
-- Time to complete workflows
-- User path analysis
+---
 
 ## Lessons Learned
 
-### 1. Start with Clear Goals
-Define what you want to measure before implementing. This ensures you track the right events.
+We've implemented PostHog across multiple products — from SaaS platforms to content-driven web properties — and the results have been consistently eye-opening. With **multi-domain tracking** configured, we gained a unified view of how users move between marketing sites, product apps, and support portals within the same session. This cross-domain visibility revealed user journeys we simply couldn't see before: users who read a blog post, visited the pricing page on a subdomain, and converted to a trial — all stitched together as a single journey.
 
-### 2. Track Events Consistently
-Use a consistent naming convention and property structure. This makes analysis easier.
+Some of the measurable benefits we've seen in practice:
 
-### 3. Include Business Context
-Add business context (user role, feature, action) to events. This enables powerful segmentation.
+- **Reduced funnel drop-off by ~30%** after using session recordings to identify and fix a confusing UI step
+- **Identified that 60%+ of users accessed certain features via mobile**, which directly informed our responsive design backlog
+- **Correlated slow LCP scores with higher bounce rates** on specific landing pages, leading to targeted performance improvements
+- **Discovered that organic search drove the highest-quality signups** (lowest churn), shifting our content investment accordingly
+- **Unified cross-domain user journeys** gave us accurate attribution that was previously split across separate analytics accounts
 
-### 4. Build Funnels for Key Workflows
-Funnel analysis reveals where users struggle. Build funnels for your most important user journeys.
+### Optimal Implementation Tips
 
-### 5. Iterate Based on Data
-Use insights to improve the product, then measure the impact of those improvements.
+1. **Start with clear goals** — Define what "success" looks like before instrumenting anything. Instrument with purpose, not just to have data.
+2. **Track consistently** — Use a naming convention from day one (e.g. `noun_verb` like `feature_accessed`, `form_submitted`). Retrofitting event names across a codebase is painful.
+3. **Add context to every event** — Properties like `user_role`, `plan`, `feature_name` unlock powerful segmentation. A bare event with no properties tells you very little.
+4. **Build funnels for every key workflow** — You can't improve what you can't measure. Start with your most critical user journey.
+5. **Set up cross-domain tracking early** — If your product spans multiple domains or subdomains, configure PostHog's cross-domain identity from the start. Adding it later means losing historical continuity.
+6. **Combine product + web analytics** — Traffic source data and feature usage data together tell a much richer story than either alone.
+7. **Act on the data** — Insights are only valuable if they drive decisions. Schedule a regular analytics review with your team.
 
-## Getting Started with PostHog
+---
 
-If you're considering PostHog for your product, here's what we recommend:
+## Getting Started
 
-1. **Define your goals** — What do you want to measure?
-2. **Identify key events** — What user actions matter most?
-3. **Plan your funnels** — Which workflows should you analyze?
-4. **Implement incrementally** — Start with basic tracking, then add more detail.
-5. **Analyze and iterate** — Use the data to improve your product.
+1. **Sign up** at [posthog.com](https://posthog.com) — generous free tier available (1M events/month)
+2. **Install the SDK** for your stack (JS snippet, React, Node, Python, Go, and more)
+3. **Enable Web Analytics** in project settings — instant traffic dashboard, no extra code needed
+4. **Define your top 5 events** to track in the first sprint
+5. **Build one funnel** for your most important user workflow
+6. **Set up one dashboard** with the metrics your team cares about most
+
+---
 
 ## Conclusion
 
-PostHog transformed how we understand our product and users. We can now answer questions with data, identify issues before they become problems, and measure the impact of our work.
+PostHog brings together product analytics, web analytics, session recordings, and feature flags in one open-source platform. Whether you want to understand where your web traffic comes from, watch users navigate your product, or measure funnel conversion rates — it's all in one place. The insights you'll gain will help you build a better product
 
-If you're building a product and want to understand how users actually use it, PostHog is worth considering. The insights you'll gain will help you build a better product.
+Start small, instrument one workflow, and let the data guide your next product decision.
