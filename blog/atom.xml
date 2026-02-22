@@ -2,11 +2,163 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.tech-talks-in/blog</id>
     <title>tech-talks Blog</title>
-    <updated>2023-03-03T00:00:00.000Z</updated>
+    <updated>2026-02-22T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.tech-talks-in/blog"/>
     <subtitle>tech-talks Blog</subtitle>
     <icon>https://www.tech-talks-in/img/techtalks-fav.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Unlocking Product Insights with PostHog: A Practical Guide to Product and Web Analytics]]></title>
+        <id>https://www.tech-talks-in/blog/posthog-product-analytics</id>
+        <link href="https://www.tech-talks-in/blog/posthog-product-analytics"/>
+        <updated>2026-02-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[How we implemented PostHog to understand user behavior, measure feature adoption, and make data-driven product decisions.]]></summary>
+        <content type="html"><![CDATA[<p>Product decisions need data. PostHog helps you understand user behavior, measure feature adoption, and make data-driven decisions. Here's how we implemented it and what we learned.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-posthog-the-problem-we-were-solving">Why PostHog? The Problem We Were Solving<a href="https://www.tech-talks-in/blog/posthog-product-analytics#why-posthog-the-problem-we-were-solving" class="hash-link" aria-label="Direct link to Why PostHog? The Problem We Were Solving" title="Direct link to Why PostHog? The Problem We Were Solving" translate="no">​</a></h2>
+<p>We needed to answer:</p>
+<ul>
+<li class="">Which features do users actually use?</li>
+<li class="">Where do users drop off in key workflows?</li>
+<li class="">How do different user roles interact with the product?</li>
+<li class="">What's the conversion rate for critical business actions?</li>
+</ul>
+<p>Without analytics, we were guessing. PostHog gave us the data to answer these questions.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-we-built-a-complete-analytics-solution">What We Built: A Complete Analytics Solution<a href="https://www.tech-talks-in/blog/posthog-product-analytics#what-we-built-a-complete-analytics-solution" class="hash-link" aria-label="Direct link to What We Built: A Complete Analytics Solution" title="Direct link to What We Built: A Complete Analytics Solution" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-automatic-page-view-tracking">1. Automatic Page View Tracking<a href="https://www.tech-talks-in/blog/posthog-product-analytics#1-automatic-page-view-tracking" class="hash-link" aria-label="Direct link to 1. Automatic Page View Tracking" title="Direct link to 1. Automatic Page View Tracking" translate="no">​</a></h3>
+<p>We implemented automatic page view tracking that captures:</p>
+<ul>
+<li class="">Route names and paths</li>
+<li class="">Feature context (which module the user is in)</li>
+<li class="">User identification (authenticated vs anonymous)</li>
+</ul>
+<p>Every navigation is tracked automatically—no manual instrumentation needed.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-user-identification-and-context">2. User Identification and Context<a href="https://www.tech-talks-in/blog/posthog-product-analytics#2-user-identification-and-context" class="hash-link" aria-label="Direct link to 2. User Identification and Context" title="Direct link to 2. User Identification and Context" translate="no">​</a></h3>
+<p>When users log in, we identify them in PostHog with:</p>
+<ul>
+<li class="">User ID and email</li>
+<li class="">Role information</li>
+<li class="">User context</li>
+</ul>
+<p>This lets us segment analysis by user type and understand how different roles use the product.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-feature-usage-tracking">3. Feature Usage Tracking<a href="https://www.tech-talks-in/blog/posthog-product-analytics#3-feature-usage-tracking" class="hash-link" aria-label="Direct link to 3. Feature Usage Tracking" title="Direct link to 3. Feature Usage Tracking" translate="no">​</a></h3>
+<p>We track when users access major features like:</p>
+<ul>
+<li class="">Campaigns module</li>
+<li class="">Unified inbox</li>
+<li class="">Settings and user management</li>
+<li class="">Dashboard and reports</li>
+</ul>
+<p>This shows which features are most valuable and where to focus development.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-workflow-step-tracking">4. Workflow Step Tracking<a href="https://www.tech-talks-in/blog/posthog-product-analytics#4-workflow-step-tracking" class="hash-link" aria-label="Direct link to 4. Workflow Step Tracking" title="Direct link to 4. Workflow Step Tracking" translate="no">​</a></h3>
+<p>For critical workflows like campaign creation, we track each step:</p>
+<ul>
+<li class="">Form started</li>
+<li class="">Basic details completed</li>
+<li class="">Contact category selected</li>
+<li class="">Delivery option selected</li>
+<li class="">Summary submitted</li>
+</ul>
+<p>This enables detailed funnel analysis to identify drop-off points.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-business-metrics-tracking">5. Business Metrics Tracking<a href="https://www.tech-talks-in/blog/posthog-product-analytics#5-business-metrics-tracking" class="hash-link" aria-label="Direct link to 5. Business Metrics Tracking" title="Direct link to 5. Business Metrics Tracking" translate="no">​</a></h3>
+<p>We track conversion events:</p>
+<ul>
+<li class="">Campaign created</li>
+<li class="">Message sent</li>
+<li class="">User created/updated</li>
+</ul>
+<p>Each event includes business context (campaign type, channel, user role) for deeper analysis.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-power-of-funnel-analysis">The Power of Funnel Analysis<a href="https://www.tech-talks-in/blog/posthog-product-analytics#the-power-of-funnel-analysis" class="hash-link" aria-label="Direct link to The Power of Funnel Analysis" title="Direct link to The Power of Funnel Analysis" translate="no">​</a></h2>
+<p>One of the most powerful features we implemented is detailed funnel analysis. For our campaign creation workflow, we built a 6-step funnel:</p>
+<ol>
+<li class="">Feature accessed (user visits campaigns page)</li>
+<li class="">Campaign form started (user opens creation form)</li>
+<li class="">Basic details completed (user fills in campaign information)</li>
+<li class="">Contact category selected (user chooses recipients)</li>
+<li class="">Delivery option selected (user chooses timing)</li>
+<li class="">Summary submitted (user submits for approval)</li>
+</ol>
+<p>This funnel shows us:</p>
+<ul>
+<li class="">Where users drop off</li>
+<li class="">How long each step takes</li>
+<li class="">Conversion rates at each stage</li>
+<li class="">Which user segments have higher completion rates</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="real-world-impact">Real-World Impact<a href="https://www.tech-talks-in/blog/posthog-product-analytics#real-world-impact" class="hash-link" aria-label="Direct link to Real-World Impact" title="Direct link to Real-World Impact" translate="no">​</a></h2>
+<p>Since implementing PostHog, we've gained insights that directly impact our product:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="understanding-user-behavior">Understanding User Behavior<a href="https://www.tech-talks-in/blog/posthog-product-analytics#understanding-user-behavior" class="hash-link" aria-label="Direct link to Understanding User Behavior" title="Direct link to Understanding User Behavior" translate="no">​</a></h3>
+<p>We can see which features drive engagement and which are underutilized. This helps prioritize development.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="identifying-bottlenecks">Identifying Bottlenecks<a href="https://www.tech-talks-in/blog/posthog-product-analytics#identifying-bottlenecks" class="hash-link" aria-label="Direct link to Identifying Bottlenecks" title="Direct link to Identifying Bottlenecks" translate="no">​</a></h3>
+<p>Funnel analysis revealed where users struggle. For example, we found that many users drop off at the contact category selection step, leading us to improve that UI.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="measuring-feature-success">Measuring Feature Success<a href="https://www.tech-talks-in/blog/posthog-product-analytics#measuring-feature-success" class="hash-link" aria-label="Direct link to Measuring Feature Success" title="Direct link to Measuring Feature Success" translate="no">​</a></h3>
+<p>When we launch new features, we can measure adoption and usage patterns to determine success.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="data-driven-decisions">Data-Driven Decisions<a href="https://www.tech-talks-in/blog/posthog-product-analytics#data-driven-decisions" class="hash-link" aria-label="Direct link to Data-Driven Decisions" title="Direct link to Data-Driven Decisions" translate="no">​</a></h3>
+<p>Instead of guessing, we make decisions based on actual user behavior data.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="implementation-highlights">Implementation Highlights<a href="https://www.tech-talks-in/blog/posthog-product-analytics#implementation-highlights" class="hash-link" aria-label="Direct link to Implementation Highlights" title="Direct link to Implementation Highlights" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="error-handling">Error Handling<a href="https://www.tech-talks-in/blog/posthog-product-analytics#error-handling" class="hash-link" aria-label="Direct link to Error Handling" title="Direct link to Error Handling" translate="no">​</a></h3>
+<p>PostHog failures don't break the app. We implemented graceful error handling so analytics issues never impact user experience.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="performance">Performance<a href="https://www.tech-talks-in/blog/posthog-product-analytics#performance" class="hash-link" aria-label="Direct link to Performance" title="Direct link to Performance" translate="no">​</a></h3>
+<p>Event tracking is asynchronous and non-blocking. Users don't notice any performance impact.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="privacy">Privacy<a href="https://www.tech-talks-in/blog/posthog-product-analytics#privacy" class="hash-link" aria-label="Direct link to Privacy" title="Direct link to Privacy" translate="no">​</a></h3>
+<p>We sanitize event properties to exclude sensitive data and respect user privacy.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="offline-support">Offline Support<a href="https://www.tech-talks-in/blog/posthog-product-analytics#offline-support" class="hash-link" aria-label="Direct link to Offline Support" title="Direct link to Offline Support" translate="no">​</a></h3>
+<p>Events are queued when offline and sent when connectivity is restored.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-metrics-we-track">Key Metrics We Track<a href="https://www.tech-talks-in/blog/posthog-product-analytics#key-metrics-we-track" class="hash-link" aria-label="Direct link to Key Metrics We Track" title="Direct link to Key Metrics We Track" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="product-metrics">Product Metrics<a href="https://www.tech-talks-in/blog/posthog-product-analytics#product-metrics" class="hash-link" aria-label="Direct link to Product Metrics" title="Direct link to Product Metrics" translate="no">​</a></h3>
+<ul>
+<li class="">Feature adoption rates</li>
+<li class="">User engagement by module</li>
+<li class="">Navigation patterns</li>
+<li class="">Session duration and frequency</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="business-metrics">Business Metrics<a href="https://www.tech-talks-in/blog/posthog-product-analytics#business-metrics" class="hash-link" aria-label="Direct link to Business Metrics" title="Direct link to Business Metrics" translate="no">​</a></h3>
+<ul>
+<li class="">Campaign creation conversion rate</li>
+<li class="">Message sending volume</li>
+<li class="">User management activity</li>
+<li class="">Feature usage by user role</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="user-journey-metrics">User Journey Metrics<a href="https://www.tech-talks-in/blog/posthog-product-analytics#user-journey-metrics" class="hash-link" aria-label="Direct link to User Journey Metrics" title="Direct link to User Journey Metrics" translate="no">​</a></h3>
+<ul>
+<li class="">Funnel conversion rates</li>
+<li class="">Drop-off points</li>
+<li class="">Time to complete workflows</li>
+<li class="">User path analysis</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="lessons-learned">Lessons Learned<a href="https://www.tech-talks-in/blog/posthog-product-analytics#lessons-learned" class="hash-link" aria-label="Direct link to Lessons Learned" title="Direct link to Lessons Learned" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-start-with-clear-goals">1. Start with Clear Goals<a href="https://www.tech-talks-in/blog/posthog-product-analytics#1-start-with-clear-goals" class="hash-link" aria-label="Direct link to 1. Start with Clear Goals" title="Direct link to 1. Start with Clear Goals" translate="no">​</a></h3>
+<p>Define what you want to measure before implementing. This ensures you track the right events.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-track-events-consistently">2. Track Events Consistently<a href="https://www.tech-talks-in/blog/posthog-product-analytics#2-track-events-consistently" class="hash-link" aria-label="Direct link to 2. Track Events Consistently" title="Direct link to 2. Track Events Consistently" translate="no">​</a></h3>
+<p>Use a consistent naming convention and property structure. This makes analysis easier.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-include-business-context">3. Include Business Context<a href="https://www.tech-talks-in/blog/posthog-product-analytics#3-include-business-context" class="hash-link" aria-label="Direct link to 3. Include Business Context" title="Direct link to 3. Include Business Context" translate="no">​</a></h3>
+<p>Add business context (user role, feature, action) to events. This enables powerful segmentation.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-build-funnels-for-key-workflows">4. Build Funnels for Key Workflows<a href="https://www.tech-talks-in/blog/posthog-product-analytics#4-build-funnels-for-key-workflows" class="hash-link" aria-label="Direct link to 4. Build Funnels for Key Workflows" title="Direct link to 4. Build Funnels for Key Workflows" translate="no">​</a></h3>
+<p>Funnel analysis reveals where users struggle. Build funnels for your most important user journeys.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-iterate-based-on-data">5. Iterate Based on Data<a href="https://www.tech-talks-in/blog/posthog-product-analytics#5-iterate-based-on-data" class="hash-link" aria-label="Direct link to 5. Iterate Based on Data" title="Direct link to 5. Iterate Based on Data" translate="no">​</a></h3>
+<p>Use insights to improve the product, then measure the impact of those improvements.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="getting-started-with-posthog">Getting Started with PostHog<a href="https://www.tech-talks-in/blog/posthog-product-analytics#getting-started-with-posthog" class="hash-link" aria-label="Direct link to Getting Started with PostHog" title="Direct link to Getting Started with PostHog" translate="no">​</a></h2>
+<p>If you're considering PostHog for your product, here's what we recommend:</p>
+<ol>
+<li class=""><strong>Define your goals</strong> — What do you want to measure?</li>
+<li class=""><strong>Identify key events</strong> — What user actions matter most?</li>
+<li class=""><strong>Plan your funnels</strong> — Which workflows should you analyze?</li>
+<li class=""><strong>Implement incrementally</strong> — Start with basic tracking, then add more detail.</li>
+<li class=""><strong>Analyze and iterate</strong> — Use the data to improve your product.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="https://www.tech-talks-in/blog/posthog-product-analytics#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
+<p>PostHog transformed how we understand our product and users. We can now answer questions with data, identify issues before they become problems, and measure the impact of our work.</p>
+<p>If you're building a product and want to understand how users actually use it, PostHog is worth considering. The insights you'll gain will help you build a better product.</p>]]></content>
+        <author>
+            <name>Pavan Kumar</name>
+            <uri>https://github.com/mrpavan</uri>
+        </author>
+        <category label="posthog" term="posthog"/>
+        <category label="analytics" term="analytics"/>
+        <category label="product" term="product"/>
+        <category label="web-analytics" term="web-analytics"/>
+        <category label="funnel" term="funnel"/>
+        <category label="user-behavior" term="user-behavior"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Load & Performance Testing]]></title>
         <id>https://www.tech-talks-in/blog/load-testing</id>
