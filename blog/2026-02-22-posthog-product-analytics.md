@@ -185,6 +185,8 @@ Session recordings let you **watch how real users navigate your product** — cl
 
 ### Heatmaps
 
+![posthog-heatmaps.png](./images/posthog-heatmaps.png)
+
 PostHog's heatmaps show aggregated click and scroll data across sessions:
 
 - **Click maps** — which elements get the most clicks (including rage-clicks)
