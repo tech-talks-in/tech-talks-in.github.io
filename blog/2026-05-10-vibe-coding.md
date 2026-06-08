@@ -94,7 +94,7 @@ You will catch things this way. Not every time, but often enough that it's worth
 
 **Context files — use them, seriously**
 
-Most AI coding agents support a persistent context file in your repo root. Claude Code uses `CLAUDE.md`, Gemini CLI uses `GEMINI.md`, Cursor has its own version. This file gets loaded with every session. If you don't have one, you're re-explaining your entire stack at the start of every conversation like some kind of groundhog day for developers.
+Most AI coding agents support a persistent context file in your repo root. Claude Code uses `CLAUDE.md`, Gemini CLI uses `GEMINI.md`, Cursor has its own version or the latest one rules all `AGENTS.md`. This file gets loaded with every session. If you don't have one, you're re-explaining your entire stack at the start of every conversation like some kind of groundhog day for developers.
 
 Mine for a recent Go project looked like:
 
